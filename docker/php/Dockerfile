@@ -1,7 +1,15 @@
 FROM php:8.2-fpm
 
-RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
-    && docker-php-ext-install intl opcache pdo pdo_mysql \
+RUN apt-get update && apt-get install -y \
+    zlib1g-dev \
+    g++ \
+    git \
+    libicu-dev \
+    libpq-dev \
+    zip \
+    libzip-dev  \
+    zip \
+    && docker-php-ext-install intl opcache pdo pdo_pgsql \
     && pecl install apcu \
 
 RUN docker-php-ext-enable apcu
