@@ -14,11 +14,19 @@ class TestResult
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $completedAt = null;
 
     #[ORM\Column]
-    private array $answers = [];
+    private array $correctAnswers = [];
+
+    #[ORM\Column]
+    private array $wrongAnswers = [];
+
+    public function __construct()
+    {
+        $this->completedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -37,24 +45,27 @@ class TestResult
         return $this;
     }
 
-    public function getAnswers(): array
+    public function getCorrectAnswers(): array
     {
-        return $this->answers;
+        return $this->correctAnswers;
     }
 
-    public function setAnswers(array $answers): static
+    public function setCorrectAnswers(array $correctAnswers): static
     {
-        $this->answers = $answers;
+        $this->correctAnswers = $correctAnswers;
 
         return $this;
     }
 
-    public function addAnswer(int $questionId, array $selectedAnswers): self
+    public function getWrongAnswers(): array
     {
-        $this->answers[] = [
-            'question_id' => $questionId,
-            'selected_answers' => $selectedAnswers
-        ];
+        return $this->wrongAnswers;
+    }
+
+    public function setWrongAnswers(array $wrongAnswers): static
+    {
+        $this->wrongAnswers = $wrongAnswers;
+
         return $this;
     }
 }

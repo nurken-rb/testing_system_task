@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Result</h1>
+
+    <h2>Correct answers</h2>
+    <ul>
+        {% for answer in correct_answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Wrong answers</h2>
+    <ul>
+        {% for answer in wrong_answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+
+    <button><a href="{{ path('test') }}">Go quiz one more time</a></button>
+{% endblock %}
