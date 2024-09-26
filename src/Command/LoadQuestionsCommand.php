@@ -16,10 +16,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand(
     name: 'LoadQuestionsCommand',
     description: 'Load questions and answers into the database',
-    aliases: ['load_questions'] ,
+    aliases: ['load_questions'],
 )]
 class LoadQuestionsCommand extends Command
 {
+    /**
+     * @var EntityManagerInterface
+     */
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,10 +35,14 @@ class LoadQuestionsCommand extends Command
     {
         $this
             ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
+            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
     }
 
+    /**
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

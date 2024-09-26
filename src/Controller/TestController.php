@@ -14,27 +14,32 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TestController extends AbstractController
 {
-    public function __construct(private QuizService $quizService)
+    /**
+     * @param QuizService $quizService
+     */
+    public function __construct(private readonly QuizService $quizService)
     {
     }
 
     /**
-     * @param QuestionRepository $questionRepository
+     * @param  QuestionRepository $questionRepository
      * @return Response
      */
     #[Route('/test', name: 'test')]
     public function test(QuestionRepository $questionRepository): Response
     {
         $questions = $questionRepository->findAll();
-        return $this->render('test.html.twig', [
+        return $this->render(
+            'test.html.twig', [
             'questions' => $questions,
-        ]);
+            ]
+        );
     }
 
     /**
-     * @param Request $request
-     * @param QuestionRepository $questionRepository
-     * @param TestResultRepository $testResultRepository
+     * @param  Request                $request
+     * @param  QuestionRepository     $questionRepository
+     * @param  EntityManagerInterface $entityManager
      * @return Response
      */
     #[Route('/test/submit', name: 'test_submit', methods: ['POST'])]
@@ -42,8 +47,7 @@ class TestController extends AbstractController
         Request $request,
         QuestionRepository $questionRepository,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $answers = $request->request->all();
         $correctAnswers = [];
         $wrongAnswers = [];
@@ -74,9 +78,11 @@ class TestController extends AbstractController
         $entityManager->persist($testResult);
         $entityManager->flush();
 
-        return $this->render('result.html.twig', [
+        return $this->render(
+            'result.html.twig', [
             'correct_answers' => $correctAnswers,
             'wrong_answers' => $wrongAnswers,
-        ]);
+            ]
+        );
     }
 }

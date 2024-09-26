@@ -8,8 +8,8 @@ use App\Entity\Question;
 class QuizService
 {
     /**
-     * @param array $correctCombinations
-     * @param array $userAnswers
+     * @param  array $correctAnswerIds
+     * @param  array $userAnswers
      * @return bool
      */
     public function checkUserAnswers(array $correctAnswerIds, array $userAnswers): bool
@@ -18,8 +18,9 @@ class QuizService
         if (empty($userAnswers)) {
             return false;
         }
-        if ($correctAnswerIds == $userAnswers)
+        if ($correctAnswerIds == $userAnswers) {
             return true;
+        }
         return false;
     }
 }
