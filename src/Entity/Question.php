@@ -24,9 +24,6 @@ class Question
     #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', cascade: ['persist', 'remove'])]
     private Collection $answers;
 
-    #[ORM\Column]
-    private array $correctAnswersCombinations = [];
-
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -75,18 +72,6 @@ class Question
                 $answer->setQuestion(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCorrectAnswersCombinations(): array
-    {
-        return $this->correctAnswersCombinations;
-    }
-
-    public function setCorrectAnswersCombinations(array $correctAnswersCombinations): static
-    {
-        $this->correctAnswersCombinations = $correctAnswersCombinations;
 
         return $this;
     }

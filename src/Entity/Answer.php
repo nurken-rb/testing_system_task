@@ -20,6 +20,9 @@ class Answer
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;
 
+    #[ORM\Column]
+    private ?bool $isCorrect = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Answer
     public function setQuestion(?Question $question): static
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function isCorrect(): ?bool
+    {
+        return $this->isCorrect;
+    }
+
+    public function setCorrect(bool $isCorrect): static
+    {
+        $this->isCorrect = $isCorrect;
 
         return $this;
     }
