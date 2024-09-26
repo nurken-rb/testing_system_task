@@ -58,6 +58,13 @@ class TestController extends AbstractController
                 continue;
             }
 
+            if (count($userAnswers) === 1) {
+                $wrongAnswers[] = $question->getText();
+                continue;
+            } else {
+                unset($userAnswers[0]);
+            }
+
             $correctAnswerIds = [];
             foreach ($question->getAnswers() as $answer) {
                 if ($answer->isCorrect()) {

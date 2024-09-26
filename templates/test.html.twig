@@ -5,6 +5,9 @@
     <form action="{{ path('test_submit') }}" method="post">
         {% for question in questions %}
             <h4>{{ question.text }}</h4>
+
+            <input type="hidden" name="{{ question.id }}[]" value="no_answer">
+
             {% for answer in question.answers %}
                 {{ loop.index }}.
                 <label>

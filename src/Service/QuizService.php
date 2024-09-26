@@ -14,13 +14,11 @@ class QuizService
      */
     public function checkUserAnswers(array $correctAnswerIds, array $userAnswers): bool
     {
-        sort($userAnswers);
         if (empty($userAnswers)) {
             return false;
         }
-        if ($correctAnswerIds == $userAnswers) {
-            return true;
-        }
-        return false;
+        $userAnswers = array_map('intval', $userAnswers);
+        sort($userAnswers);
+        return $correctAnswerIds == $userAnswers;
     }
 }
