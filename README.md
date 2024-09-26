@@ -8,7 +8,7 @@
 
 - ### docker exec -it test_php_app bash
 
-- ### docker exec -it test_php_app bash
+- ### composer install
 
 - ### php bin/console doctrine:migrations:migrate
 
